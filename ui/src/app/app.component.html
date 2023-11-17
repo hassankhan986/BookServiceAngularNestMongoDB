@@ -1,40 +1,38 @@
 <!-- src/app/app.component.html -->
 
+<!-- Display book list -->
+
+<div *ngIf="books.length > 0; else noBooks">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!-- Define columns -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthClass'">Title</th>
+      <td mat-cell *matCellDef="let book" [ngClass]="'customWidthClass'">{{ book.title }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="genre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthClass'">Genre</th>
+      <td mat-cell *matCellDef="let book" [ngClass]="'customWidthClass'">{{ book.genre }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthClass'">Author</th>
+      <td mat-cell *matCellDef="let book" [ngClass]="'customWidthClass'">{{ book.author }} &nbsp;
+        <button *ngIf="isLoggedIn" (click)="deleteBook(book._id)">Delete</button>
+        &nbsp;&nbsp;<button *ngIf="isLoggedIn" (click)="editBook(book)">Edit</button></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[ 10, 25, 100]" showFirstLastButtons [length]="dataSource.data.length"></mat-paginator>
+
+</div>
+<ng-template #noBooks>
+  <p>No books stored in the DB</p>
+</ng-template>
+
 <div *ngIf="!isLoggedIn; else loginTemplate">
-  <h2>Book List</h2>
-
-  <!-- Display book list -->
-
-  <div *ngIf="books.length > 0; else noBooks">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-      <!-- Define columns -->
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthClass'">Title</th>
-        <td mat-cell *matCellDef="let book" [ngClass]="'customWidthClass'">{{ book.title }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="genre">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthClass'">Genre</th>
-        <td mat-cell *matCellDef="let book" [ngClass]="'customWidthClass'">{{ book.genre }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="author">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthClass'">Author</th>
-        <td mat-cell *matCellDef="let book" [ngClass]="'customWidthClass'">{{ book.author }}</td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[ 10, 25, 100]" showFirstLastButtons [length]="dataSource.data.length"></mat-paginator>
-
-  </div>
-
-  <ng-template #noBooks>
-    <p>No books stored in the DB</p>
-  </ng-template>
-
-
 
   <h2>Login</h2>
   <form (ngSubmit)="login()">
@@ -49,38 +47,6 @@
 </div>
 
 <ng-template #loginTemplate>
-  <h2>Book List</h2>
-
-  <!-- Display book list -->
-  <div *ngIf="books.length > 0; else noBooks">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-      <!-- Define columns -->
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthClass'">Title</th>
-        <td mat-cell *matCellDef="let book" [ngClass]="'customWidthClass'">{{ book.title }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="genre">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthClass'">Genre</th>
-        <td mat-cell *matCellDef="let book" [ngClass]="'customWidthClass'">{{ book.genre }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="author">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthClass'">Author</th>
-        <td mat-cell *matCellDef="let book" [ngClass]="'customWidthClass'">{{ book.author }} &nbsp;  <button (click)="deleteBook(book._id)">Delete</button>
-          &nbsp;&nbsp;<button (click)="editBook(book)">Edit</button></td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[ 10, 25, 100]" showFirstLastButtons [length]="dataSource.data.length"></mat-paginator>
-
-  </div>
-   <ng-template #noBooks>
-    <p>No books stored in the DB</p>
-  </ng-template>
-
   <!-- Display Add Book form if logged in -->
 
   <div *ngIf="isLoggedIn">
