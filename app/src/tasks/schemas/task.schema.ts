@@ -1,4 +1,4 @@
-// src/tasks/schemas/task.schema.ts
+// src/tasks/schemas/book.schema.ts
 import * as mongoose from 'mongoose';
 
 export const TaskSchema = new mongoose.Schema({

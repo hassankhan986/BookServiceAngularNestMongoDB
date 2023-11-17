@@ -1,0 +1,7 @@
+#POST localhost:3000/auth/login
+#Body: {
+#         "username": string,
+#         "password": string
+#      }
+
+POST localhost:3000/books/6556741e3cc38f206d7c0696

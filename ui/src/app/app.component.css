@@ -1,0 +1,14 @@
+.customWidthClass{
+    flex: 0 0 75px;
+}
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the table horizontally */
+    width: 75%; /* Set the width to 50% of the screen */
+    margin: auto; /* Center the table horizontally */
+}
+
+.mat-table {
+    width: 75%; /* Make the table take up 100% of its container */
+}
